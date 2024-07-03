@@ -5,7 +5,7 @@ const Home = () => {
     <div>
       <h1>
         Welcome to MP bank.
-
+      
       </h1>
     </div>
   )
