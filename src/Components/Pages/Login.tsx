@@ -2,28 +2,39 @@ import React, { ChangeEvent, useContext, useState } from 'react';
 import { UserContext } from '../../Routes/AllRoutes'; // Adjust the import path as necessary
 import { ILogin } from '../Interfaces/Interface';
 import { Link } from 'react-router-dom';
+import axios from "axios";
 
 const Login = () => {
   const userContext = useContext(UserContext);
-  const [login,setLogin]=useState<ILogin>({
-    username:"",
-    password:""
-  })
- const {username, password}=login
+  const [login, setLogin] = useState<ILogin>({
+    username: "",
+    password: ""
+  });
+  const { username, password } = login;
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target;
-    setLogin({...login,[name]:value});
+    setLogin({ ...login, [name]: value });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLButtonElement>): void => {
+  const handleSubmit = async (e: React.FormEvent<HTMLButtonElement>): Promise<void> => {
     e.preventDefault();
-    if (password === 'hello' && username === 'montu') {
+    if (password.trim() && username.trim()) {
       if (userContext) {
-        userContext.setIsLogin(true);
+        try {
+          const res = await axios.post("http://localhost:8000/CheckLogin", login);
+          if (res.data.message === "Success") {
+            userContext.setIsLogin(true);
+            localStorage.setItem("islogin", "true");
+          } else {
+            setLogin({ ...login, password: "" });
+            alert(res.data.message);
+          }
+        } catch (error) {
+          console.error("Login error:", error);
+        }
       }
     }
-    console.log({ username, password, isLogin: userContext?.isLogin });
   };
 
   return (
@@ -34,7 +45,6 @@ const Login = () => {
         <button id='Login' onClick={handleSubmit}>Login</button>
         <Link to={"/register"}>Register</Link>
       </form>
-      
     </div>
   );
 };
