@@ -1,10 +1,12 @@
 const express=require("express");
 const mongoose=require("mongoose");
+const bcrypt=require("bcrypt");
 const app=express();
 const cors=require("cors");
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
+let saltIndex=10;
 mongoose.connect("mongodb://127.0.0.1:27017/MP_Bank")
     .then(() => {
         console.log("Database Connected");
@@ -15,6 +17,14 @@ mongoose.connect("mongodb://127.0.0.1:27017/MP_Bank")
 
 const getUsername=(first,last,number)=>{
     return first+last+number.substr(0,5);
+}
+const hashPassword=async(password)=>{
+    let hashpassword=await bcrypt.hash(password,saltIndex);
+    return hashpassword;
+}
+const ValidatePassword=async (password, savedPassword)=>{
+   let isValid= await bcrypt.compare(password,savedPassword);
+   return isValid;
 }
 const SchemaRegister = new mongoose.Schema({
     firstName: String,
@@ -29,7 +39,7 @@ const User = mongoose.model("User", SchemaRegister);
 
 app.post("/RegisterUser", async (req, res) => {
     const { firstName, lastname, password, idProofType, idNumber } = req.body;
-
+    let hashpassword=await hashPassword(password);
     if (!firstName || !lastname || !password || !idProofType || !idNumber) {
         return res.status(400).send({ message: "All fields are required." });
     }
@@ -44,7 +54,7 @@ app.post("/RegisterUser", async (req, res) => {
                 firstName,
                 lastname,
                 username,
-                password,
+                password:hashpassword,
                 idProofType,
                 idNumber
             });
@@ -68,7 +78,7 @@ app.post("/CheckLogin", async (req, res) => {
     try {
         const isExist = await User.findOne({ username });
         if (isExist) {
-            if(isExist.password===password){
+            if(await ValidatePassword(password,isExist.password)){
                  res.status(201).send({ message: `Success` });
             }else{
                 res.status(200).send({ message: `Invalid username or password` });
