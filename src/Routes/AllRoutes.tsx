@@ -4,6 +4,8 @@ import Home from '../Components/Home';
 import Login from '../Components/Pages/Login';
 import Register from '../Components/Pages/Register';
 import Logout from '../Components/Pages/Logout';
+import Sidebar from '../Components/Sidebar/Sidebar';
+import Settings from '../Components/Pages/Settings';
 
 type UserContextType = {
   isLogin: boolean;
@@ -14,19 +16,26 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 
 const AllRoutes = () => {
   const [isLogin, setIsLogin] = useState<boolean>(false);
-
+  let localLogin = JSON.parse(localStorage.getItem("islogin") || "false");
   useEffect(() => {
-    const localLogin = JSON.parse(localStorage.getItem("islogin") || "false");
+    let localLogin = JSON.parse(localStorage.getItem("islogin") || "false");
     setIsLogin(localLogin);
   }, [isLogin]);
 
   return (
     <UserContext.Provider value={{ isLogin, setIsLogin }}>
       {/* <Logout/> */}
+      <div className="app">
+      <Sidebar/>
+      <div className="main-content">
       <Routes>
-        <Route path='/' element={isLogin ? <Home /> : <Login />} />
+        <Route path='/' element={localLogin ? <Home /> : <Login />} />
         <Route path='/register' element={<Register />} />
+        <Route path='/settings' element={<Settings />} />
+        
       </Routes>
+      </div>
+      </div>
     </UserContext.Provider>
   );
 };
