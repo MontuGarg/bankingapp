@@ -24,10 +24,11 @@ const AllRoutes = () => {
 
   return (
     <UserContext.Provider value={{ isLogin, setIsLogin }}>
-      {/* <Logout/> */}
+      
       <div className="app">
-      <Sidebar/>
+      {isLogin && <Sidebar />}
       <div className="main-content">
+      {isLogin && <Logout/>}
       <Routes>
         <Route path='/' element={localLogin ? <Home /> : <Login />} />
         <Route path='/register' element={<Register />} />
