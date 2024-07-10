@@ -37,31 +37,75 @@ const Register = () => {
   };
 
   return (
-    <div>
-      <form>
-        <div>
-          <label>Name:</label>
-          <input type="text" name="firstName" value={registerData.firstName} onChange={handleChange} required />
+    <div className="sign-up">
+  <div className="container-fluid">
+    <div className="row">
+      <div className="col-md-6 left-side">
+        <div className="brand"> 
+          <img src="/images/bankinglogo.jpeg" alt="Banking Logo" />
         </div>
-        <div>
-          <label>Email:</label>
-          <input type="text" name="lastname" value={registerData.lastname} onChange={handleChange} required />
+        <div className="welcome-content">
+          <h1 className="heading">Welcome to MP BANK</h1>
+          <div className="group-image mt-5">
+            <img src="/images/signin.jpg" className="img-fluid" alt="Sign Up" />
+          </div>
         </div>
-        <div>
-          <label>Password:</label>
-          <input type="password" name="password" value={registerData.password} onChange={handleChange} required />
-        </div>
-        <div>
-          <label>Account Number:</label>
-          <input type="text" name="idProofType" value={registerData.idProofType} onChange={handleChange} required />
-        </div>
-        <div>
-          <label>Phone:</label>
-          <input type="tel" name="idNumber" value={registerData.idNumber} onChange={handleChange} required />
-        </div>
-        <button onClick={handleSubmit}>Register</button>
-      </form>
+      </div>
+      <div className="col-md-6 right-side">
+        <form>
+          <h2 className="text-center mb-4">Register Form</h2>
+          <input 
+            type="text" 
+            name="firstName" 
+            className="mb-3 bg-dark-field form-control"
+            value={registerData.firstName} 
+            onChange={handleChange} 
+            placeholder="First Name"
+            required 
+          />
+          <input 
+            type="text" 
+            name="lastname"
+            className="mb-3 bg-dark-field form-control"
+            value={registerData.lastname} 
+            onChange={handleChange} 
+            placeholder="Last Name"
+            required 
+          />
+          <input 
+            type="password" 
+            name="password"
+            className="mb-3 bg-dark-field form-control" 
+            value={registerData.password} 
+            onChange={handleChange} 
+            placeholder="Password"
+            required 
+          />
+          <input 
+            type="text" 
+            name="idProofType"
+            className="mb-3 bg-dark-field form-control" 
+            value={registerData.idProofType} 
+            onChange={handleChange} 
+            placeholder="Account Number"
+            required 
+          />
+          <input 
+            type="tel" 
+            name="idNumber"
+            className="mb-3 bg-dark-field form-control" 
+            value={registerData.idNumber} 
+            onChange={handleChange} 
+            placeholder="Phone"
+            required 
+          />
+          <button id="Register" className="btn btn-primary w-100" onClick={handleSubmit}>Register</button>
+        </form>
+      </div>
     </div>
+  </div>
+</div>
+
   );
 };
 

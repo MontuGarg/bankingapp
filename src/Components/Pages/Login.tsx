@@ -3,6 +3,10 @@ import { UserContext } from '../../Routes/AllRoutes'; // Adjust the import path 
 import { ILogin } from '../Interfaces/Interface';
 import { Link } from 'react-router-dom';
 import axios from "axios";
+import { CiUser } from "react-icons/ci";
+import { AiOutlineEye } from "react-icons/ai";
+import { AiOutlineEyeInvisible } from "react-icons/ai";
+
 
 const Login = () => {
   const userContext = useContext(UserContext);
@@ -11,6 +15,12 @@ const Login = () => {
     password: ""
   });
   const { username, password } = login;
+  const [showPassword, setShowPassword] = useState(false);
+
+
+  const Passowrdvisible = () => {
+    setShowPassword(!showPassword);
+  };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target;
@@ -38,14 +48,42 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div className="login-page" style={{ backgroundImage: 'url(/images/login1.jpg)' }}>
+    <div className="form-container bg-white p-5 rounded shadow-lg">
       <form>
-        <input type='text' name='username' value={username} onChange={handleChange} />
-        <input type='password' name='password' value={password} onChange={handleChange} />
-        <button id='Login' onClick={handleSubmit}>Login</button>
-        <Link to={"/register"}>Register</Link>
+        <h2 className="text-center mb-4">Login</h2>
+        <div className="form-group mb-3 position-relative">
+            <input 
+              type="text" 
+              name="username" 
+              className="form-control mb-3 rounded"
+              value={username} 
+              onChange={handleChange} 
+              placeholder="Username"
+            />
+            <CiUser className="input-icon" />
+          </div>
+          <div className="form-group mb-3 position-relative">
+            <input 
+              type={showPassword ? "text" : "password"} 
+              name="password"
+              className="form-control mb-3 rounded" 
+              value={password} 
+              onChange={handleChange} 
+              placeholder="Password"
+            />
+            {showPassword ? (
+              
+              <AiOutlineEye className="password-icon" onClick={Passowrdvisible} />
+            ) : (
+              <AiOutlineEyeInvisible className="password-icon" onClick={Passowrdvisible} />
+            )}
+          </div>
+        <button id="Login" className="btn btn-primary w-50 mb-3" onClick={handleSubmit}>Login</button>
+        <Link to={"/register"} className="d-block text-center">Register</Link>
       </form>
     </div>
+  </div>
   );
 };
 

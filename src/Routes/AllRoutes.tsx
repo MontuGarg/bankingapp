@@ -22,7 +22,7 @@ const AllRoutes = () => {
 
   return (
     <UserContext.Provider value={{ isLogin, setIsLogin }}>
-      <Logout/>
+      {/* <Logout/> */}
       <Routes>
         <Route path='/' element={isLogin ? <Home /> : <Login />} />
         <Route path='/register' element={<Register />} />
