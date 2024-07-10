@@ -3,6 +3,11 @@ const mongoose=require("mongoose");
 const bcrypt=require("bcrypt");
 const app=express();
 const cors=require("cors");
+const { Twilio } = require('twilio');
+require('dotenv').config();
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const client =new Twilio(accountSid, authToken);
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
@@ -47,6 +52,7 @@ app.post("/RegisterUser", async (req, res) => {
     const username = getUsername(firstName, lastname, idNumber);
 
     try {
+        
         const isExist = await User.findOne({ username });
 
         if (!isExist) {
@@ -69,6 +75,8 @@ app.post("/RegisterUser", async (req, res) => {
         res.status(200).send({ message: "An error occurred while registering the user." });
     }
 });
+
+
 app.post("/CheckLogin", async (req, res) => {
     const { username,  password} = req.body;
 
