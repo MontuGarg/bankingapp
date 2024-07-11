@@ -48,8 +48,8 @@ const Login = () => {
   };
 
   return (
-    <div className="login-page" style={{ backgroundImage: 'url(/images/login1.jpg)' }}>
-    <div className="form-container bg-white p-5 rounded shadow-lg">
+    <div className='background'>
+    <div className="form-container ">
       <form>
         <h2 className="text-center mb-4">Login</h2>
         <div className="form-group mb-3 position-relative">
@@ -79,7 +79,7 @@ const Login = () => {
               <AiOutlineEyeInvisible className="password-icon" onClick={Passowrdvisible} />
             )}
           </div>
-        <button id="Login" className="btn btn-primary w-50 mb-3" onClick={handleSubmit}>Login</button>
+        <button id="Login" className="btn btn-primary w-50 mb-3 login-button" onClick={handleSubmit}>Login</button>
         <Link to={"/register"} className="d-block text-center">Register</Link>
       </form>
     </div>

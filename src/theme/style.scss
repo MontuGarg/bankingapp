@@ -104,7 +104,7 @@ $sidebar-hover-color: #34495e;
         display: flex;
         justify-content: center;
         align-items: center;
-        background: #f0f0f0;
+        background: #c7d6e4e1;
         padding: 2rem;
         height: 100vh;
 
@@ -150,35 +150,82 @@ $sidebar-hover-color: #34495e;
     }
 }
 
-.login-page {
-    background-size: cover;
-    background-position: center;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.background {
+  background-image: url('https://static.vecteezy.com/system/resources/thumbnails/019/523/927/small/abstract-digital-fingerprint-login-concept-identity-verification-illustration-with-digital-hand-wireframe-security-protection-on-a-futuristic-modern-background-vector.jpg'); /* Replace with your background image path */
+  background-size: cover;
+  background-position: center;
+  height: 100vh; 
+  width: 100%; 
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .form-container {
-    background: rgba(227, 238, 238, 0.795) !important; 
-    padding: 50px;
-    border-radius: 15px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
-    width: 100%;
-    max-width: 500px;
-    animation: slideIn 0.6s ease-in-out;
+  background:linear-gradient(250deg,rgba(118, 86, 86, 0.191),rgba(255, 255, 255, 0.36));
+  border: 1px solid grey;
+  padding: 30px;
+  border-radius: 10px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+  position: relative; 
+  backdrop-filter: blur(12px);
+  z-index: 1; 
+  &::after{
+    position: absolute;
+    content: "";
+    height: 100px;
+    width: 100px;
+    background-color: rgba(255, 255, 255, 0.112);
+    bottom: -50px;
+    left: -05vh;
+    animation: box 2s infinite alternate cubic-bezier(0.19, 1, 0.22, 1);
+  }
+  @keyframes box {
+    0%{
+      bottom: -50px;
+    left: -05vh;
+    }
+    100%{
+      bottom: 50px;
+    left: -5vh;
+    }
+  }
 }
+// .login-page {
+//     background-size: cover;
+//     background-position: center;
+//     min-height: 100vh;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+// }
 
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
+// .form-container {
+//     background: rgba(227, 238, 238, 0.795) !important; 
+//     padding: 50px;
+//     border-radius: 15px;
+//     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
+//     width: 100%;
+//     max-width: 500px;
+//     animation: slideIn 0.6s ease-in-out;
+// }
+
+// @keyframes slideIn {
+//     from {
+//         opacity: 0;
+//         transform: translateY(-20px);
+//     }
+//     to {
+//         opacity: 1;
+//         transform: translateY(0);
+//     }
+// }
 
 .form-container h2 {
     margin-bottom: 30px;
@@ -223,13 +270,14 @@ $sidebar-hover-color: #34495e;
 }
 
 .form-container .btn {
-    padding: 15px;
-    font-size: 1.1rem;
-    border-radius: 50px;
-    background-color: #6c757d; 
-    border: none;
-    color: #fff;
-    transition: background-color 0.3s ease; 
+  padding: 15px;
+  font-size: 1.1rem;
+  border-radius: 50px;
+  background-color: #6c757d; 
+  border: none;
+  color: #fff;
+  transition: background-color 0.3s ease; 
+  margin-top: 20px; /* Add margin to separate from other elements */
 }
 
 .form-container .btn:hover {

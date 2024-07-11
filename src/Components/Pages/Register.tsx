@@ -1,6 +1,7 @@
 import React, { ChangeEvent, useState } from 'react';
 // import { UserContext } from '../../Routes/AllRoutes'; // Adjust the import path as necessary
 import axios from 'axios';
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 interface IRegister {
   firstName:string;
   lastname:string;
@@ -11,6 +12,7 @@ interface IRegister {
 
 const Register = () => {
   // const userContext = useContext(UserContext);
+  const [showPassword,setShowPassword]=useState(false)
   const [registerData, setRegisterData] = useState<IRegister>({
     firstName: '',
     lastname: '',
@@ -35,6 +37,9 @@ const Register = () => {
        // Example: Set login state on successful registration
     
   };
+  const Passowrdvisible = () => {
+    setShowPassword(!showPassword);
+  };
 
   return (
     <div className="sign-up">
@@ -52,39 +57,49 @@ const Register = () => {
         </div>
       </div>
       <div className="col-md-6 right-side">
+        <div className='form-container'>
         <form>
           <h2 className="text-center mb-4">Register Form</h2>
           <input 
             type="text" 
             name="firstName" 
-            className="mb-3 bg-dark-field form-control"
+            className="form-control mb-3 rounded"
             value={registerData.firstName} 
             onChange={handleChange} 
             placeholder="First Name"
             required 
           />
           <input 
-            type="text" 
+            type="text"
             name="lastname"
-            className="mb-3 bg-dark-field form-control"
+            className="form-control mb-3 rounded"
             value={registerData.lastname} 
             onChange={handleChange} 
             placeholder="Last Name"
             required 
           />
+          <div className='form-group mb-3 position-relative'>
           <input 
-            type="password" 
+            type={showPassword? "text":"password"} 
             name="password"
-            className="mb-3 bg-dark-field form-control" 
+            className="form-control mb-3 rounded" 
             value={registerData.password} 
             onChange={handleChange} 
             placeholder="Password"
             required 
           />
+           {
+            showPassword ? (
+              <AiOutlineEye className="password-icon" onClick={Passowrdvisible} />
+            ):(
+              <AiOutlineEyeInvisible className="password-icon" onClick={Passowrdvisible} />
+            )
+          }
+          </div>
           <input 
             type="text" 
             name="idProofType"
-            className="mb-3 bg-dark-field form-control" 
+            className="form-control mb-3 rounded" 
             value={registerData.idProofType} 
             onChange={handleChange} 
             placeholder="Account Number"
@@ -93,7 +108,7 @@ const Register = () => {
           <input 
             type="tel" 
             name="idNumber"
-            className="mb-3 bg-dark-field form-control" 
+            className="form-control mb-3 rounded" 
             value={registerData.idNumber} 
             onChange={handleChange} 
             placeholder="Phone"
@@ -101,6 +116,7 @@ const Register = () => {
           />
           <button id="Register" className="btn btn-primary w-100" onClick={handleSubmit}>Register</button>
         </form>
+        </div>
       </div>
     </div>
   </div>
